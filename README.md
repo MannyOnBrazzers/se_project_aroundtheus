@@ -19,7 +19,7 @@ Website aimed to be fully responsive using HTML and CSS, with my particular focu
 
 ## Important Links
 
-* [Deployment](google.com)
+* [Deployment](https://mannyonbrazzers.github.io/se_project_aroundtheus/)
 * [Video](google.com)
   
 ## Figma 

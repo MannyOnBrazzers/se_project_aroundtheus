@@ -16,6 +16,7 @@
 }
 
 @media screen and (min-width: 700px) and (max-width: 800px) {
+  /* Style applied to devices with a screen width between 700px and 800px */
   .footer {
     padding-left: 90px;
   }

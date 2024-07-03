@@ -6,3 +6,17 @@ let initialCards = [
   {name: 'Vanoise National Park', link: 'https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/vanoise.jpg'},
   {name: 'Lago di Braies', link: 'https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg'},
 ];
+
+
+let editButton = document.querySelector('.profile__edit-button')
+
+editButton.addEventListener('click', function () {
+  let menu = document.querySelector('.modal')
+  let closeButton = menu.querySelector('.modal__close')
+
+  menu.classList.add('modal__opened')
+
+  closeButton.addEventListener('click', function(){
+    menu.classList.remove('modal__opened')
+  });
+});

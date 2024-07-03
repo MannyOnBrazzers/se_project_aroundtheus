@@ -11,7 +11,7 @@
 }
 
 .modal__opened {
-  display: none;
+  display: flex;
 }
 
 .modal__container {

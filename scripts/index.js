@@ -9,14 +9,62 @@ let initialCards = [
 
 
 let editButton = document.querySelector('.profile__edit-button')
+let modalMenu = document.querySelector('.modal')
+let modalClose = modalMenu.querySelector('.modal__close')
 
-editButton.addEventListener('click', function () {
-  let menu = document.querySelector('.modal')
-  let closeButton = menu.querySelector('.modal__close')
+let profileTitle = document.querySelector('.profile__title')
+let profileDescription = document.querySelector('.profile__description')
 
-  menu.classList.add('modal__opened')
+let modalTitle = modalMenu.querySelector('#profile-modal-title')
+let modalDescription = modalMenu.querySelector('#profile-modal-description')
+let modalSubmit = modalMenu.querySelector('#profile-modal-submit')
 
-  closeButton.addEventListener('click', function(){
-    menu.classList.remove('modal__opened')
-  });
-});
+let template = document.querySelector('#element-template').content.firstElementChild
+let elementList = document.querySelector('.elements__lists')
+
+// Functions
+
+function openProfileModal(){
+  modalTitle.value = profileTitle.textContent
+  modalDescription.value = profileDescription.textContent
+
+  modalMenu.classList.add('modal__opened')
+}
+
+function closeProfileModal(){
+  modalMenu.classList.remove('modal__opened')
+}
+
+function submitProfileModal(event){
+  event.preventDefault();
+
+  profileTitle.textContent = modalTitle.value
+  profileDescription.textContent = modalDescription.value
+
+  closeProfileModal()
+}
+
+function getCardElement(data){
+  const element = template.cloneNode(true);
+  const elementImage = element.querySelector('.elements__image')
+  const elementTitle = element.querySelector('.elements__title')
+
+  elementTitle.textContent = data.name;
+  elementImage.src = data.link
+  element.alt = data.name
+
+  return element
+}
+
+// Cards
+
+initialCards.forEach((card) => {
+  const cardElement = getCardElement(card)
+  elementList.append(cardElement)
+})
+
+// Listeners
+
+editButton.addEventListener('click', openProfileModal)
+modalClose.addEventListener('click', closeProfileModal)
+modalSubmit.addEventListener('click', submitProfileModal)

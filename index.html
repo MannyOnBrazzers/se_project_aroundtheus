@@ -36,50 +36,7 @@
         </section>
 
         <section class="page__section elements">
-          <ul class="elements__lists">
-            <li class="elements__list">
-              <img src="./images/yosemite.jpg" alt="Yosemite Valley" class="elements__image">
-              <div class="elements__description">
-                <h2 class="elements__title">Yosemite Valley</h2>
-                <button type="button" class="elements__like-button"></button>
-              </div>
-            </li>
-            <li class="elements__list">
-              <img src="./images/lake-louise.jpg" alt="Lake Louise" class="elements__image">
-              <div class="elements__description">
-                <h2 class="elements__title">Lake Louise</h2>
-                <button type="button" class="elements__like-button"></button>
-              </div>
-            </li>
-            <li class="elements__list">
-              <img src="./images/bald-mountains.jpg" alt="Bald Mountains" class="elements__image">
-              <div class="elements__description">
-                <h2 class="elements__title">Bald Mountains</h2>
-                <button type="button" class="elements__like-button"></button>
-              </div>
-            </li>
-            <li class="elements__list">
-              <img src="./images/latemar.jpg" alt="Latemar" class="elements__image">
-              <div class="elements__description">
-                <h2 class="elements__title">Latemar</h2>
-                <button type="button" class="elements__like-button"></button>
-              </div>
-            </li>
-            <li class="elements__list">
-              <img src="./images/vanoise.jpg" alt="Vanoise" class="elements__image">
-              <div class="elements__description">
-                <h2 class="elements__title">Vanoise National Park</h2>
-                <button type="button" class="elements__like-button"></button>
-              </div>
-            </li>
-            <li class="elements__list">
-              <img src="./images/lago.jpg" alt="Lago di Braies" class="elements__image">
-              <div class="elements__description">
-                <h2 class="elements__title">Lago di Braies</h2>
-                <button type="button" class="elements__like-button"></button>
-              </div>
-            </li>
-          </ul>
+          <ul class="elements__lists"></ul>
         </section>
       </main>
       <footer class="page__section footer">
@@ -92,12 +49,22 @@
         <button class="modal__close" type="button"></button>
         <p class="modal__heading">Edit profile</p>
         <form class="modal__form">
-          <input type="text" name="title" class="modal__input" placeholder="Jacques Cousteau"/>
-          <input type="text" name="description" class="modal__input" placeholder="Explorer"/>
-          <button class="modal__button">Save</button>
+          <input type="text" name="title" class="modal__input" id="profile-modal-title" placeholder="Title"/>
+          <input type="text" name="description" class="modal__input" id="profile-modal-description" placeholder="Description"/>
+          <button class="modal__button" id="profile-modal-submit">Save</button>
         </form>
       </div>
     </div>
+
+    <template id="element-template">
+      <li class="elements__list">
+        <img src="" alt="" class="elements__image">
+        <div class="elements__description">
+          <h2 class="elements__title"></h2>
+          <button type="button" class="elements__like-button"></button>
+        </div>
+      </li>
+    </template>
 
     <script src="./scripts/index.js"></script>
   </body>

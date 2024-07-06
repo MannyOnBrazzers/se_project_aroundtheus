@@ -1,4 +1,4 @@
-let initialCards = [
+const initialCards = [
   {name: 'Yosemite Valley', link: 'https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg'},
   {name: 'Lake Louise', link: 'https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg'},
   {name: 'Bald Mountains', link: 'https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg'},
@@ -8,19 +8,19 @@ let initialCards = [
 ];
 
 
-let editButton = document.querySelector('.profile__edit-button')
-let modalMenu = document.querySelector('.modal')
-let modalClose = modalMenu.querySelector('.modal__close')
+const editButton = document.querySelector('.profile__edit-button')
+const modalMenu = document.querySelector('.modal')
+const modalClose = modalMenu.querySelector('.modal__close')
 
-let profileTitle = document.querySelector('.profile__title')
-let profileDescription = document.querySelector('.profile__description')
+const profileTitle = document.querySelector('.profile__title')
+const profileDescription = document.querySelector('.profile__description')
 
-let modalTitle = modalMenu.querySelector('#profile-modal-title')
-let modalDescription = modalMenu.querySelector('#profile-modal-description')
-let modalSubmit = modalMenu.querySelector('#profile-modal-submit')
+const modalTitle = modalMenu.querySelector('#profile-modal-title')
+const modalDescription = modalMenu.querySelector('#profile-modal-description')
+const modalSubmit = modalMenu.querySelector('#profile-modal-submit')
 
-let template = document.querySelector('#element-template').content.firstElementChild
-let elementList = document.querySelector('.elements__lists')
+const template = document.querySelector('#element-template').content.firstElementChild
+const elementList = document.querySelector('.elements__lists')
 
 // Functions
 
@@ -28,11 +28,11 @@ function openProfileModal(){
   modalTitle.value = profileTitle.textContent
   modalDescription.value = profileDescription.textContent
 
-  modalMenu.classList.add('modal__opened')
+  modalMenu.classList.add('modal_opened')
 }
 
 function closeProfileModal(){
-  modalMenu.classList.remove('modal__opened')
+  modalMenu.classList.remove('modal_opened')
 }
 
 function submitProfileModal(event){
@@ -51,7 +51,7 @@ function getCardElement(data){
 
   elementTitle.textContent = data.name;
   elementImage.src = data.link
-  element.alt = data.name
+  elementImage.alt = data.name
 
   return element
 }
@@ -67,4 +67,4 @@ initialCards.forEach((card) => {
 
 editButton.addEventListener('click', openProfileModal)
 modalClose.addEventListener('click', closeProfileModal)
-modalSubmit.addEventListener('click', submitProfileModal)
+modalSubmit.addEventListener('submit', submitProfileModal)

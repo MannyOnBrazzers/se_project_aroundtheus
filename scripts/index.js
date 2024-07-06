@@ -17,7 +17,7 @@ const profileDescription = document.querySelector('.profile__description')
 
 const modalTitle = modalMenu.querySelector('#profile-modal-title')
 const modalDescription = modalMenu.querySelector('#profile-modal-description')
-const modalSubmit = modalMenu.querySelector('#profile-modal-submit')
+const modalSubmit = modalMenu.querySelector('.modal__form')
 
 const template = document.querySelector('#element-template').content.firstElementChild
 const elementList = document.querySelector('.elements__lists')

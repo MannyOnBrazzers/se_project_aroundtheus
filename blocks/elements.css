@@ -21,6 +21,21 @@
   display: flex;
   flex-direction: column;
   list-style: none;
+  position: relative;
+}
+
+.elements__delete {
+  position: absolute;
+  background-image: url(../images/dumpster.svg);
+  width: 18px;
+  height: 19.3px;
+  top: 18px;
+  right: 15px;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: transparent;
+  border: 0;
 }
 
 .elements__image {
@@ -64,4 +79,8 @@
 
 .elements__like-button:hover {
   opacity: 50%;
+}
+
+.elements__like-button-active {
+  background: transparent url(../images/heart-active.svg) center no-repeat;
 }

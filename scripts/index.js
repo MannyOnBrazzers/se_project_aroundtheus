@@ -7,64 +7,137 @@ const initialCards = [
   {name: 'Lago di Braies', link: 'https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg'},
 ];
 
+// Popups
 
 const editButton = document.querySelector('.profile__edit-button')
-const modalMenu = document.querySelector('.modal')
-const modalClose = modalMenu.querySelector('.modal__close')
+const editMenu = document.querySelector('#edit_modal')
+const editClose = document.querySelector('#edit_close')
+
+const editTitle = editMenu.querySelector('#profile-modal-title')
+const editDescription = editMenu.querySelector('#profile-modal-description')
+const editSubmit = editMenu.querySelector('#edit_submit')
+
+const addButton = document.querySelector('.profile__add-button')
+const addMenu = document.querySelector('#add_modal')
+const addClose = document.querySelector('#add_close')
+
+const addTitle = addMenu.querySelector('#add-modal-title')
+const addLink = addMenu.querySelector('#add-modal-link')
+const addSubmit = addMenu.querySelector('#add_submit')
+
+// Other
 
 const profileTitle = document.querySelector('.profile__title')
 const profileDescription = document.querySelector('.profile__description')
-
-const modalTitle = modalMenu.querySelector('#profile-modal-title')
-const modalDescription = modalMenu.querySelector('#profile-modal-description')
-const modalSubmit = modalMenu.querySelector('.modal__form')
 
 const template = document.querySelector('#element-template').content.firstElementChild
 const elementList = document.querySelector('.elements__lists')
 
 // Functions
 
-function openProfileModal(){
-  modalTitle.value = profileTitle.textContent
-  modalDescription.value = profileDescription.textContent
+function openPopup(popup){
+  addTitle.value = ''
+  addLink.value = ''
+  editTitle.value = profileTitle.textContent
+  editDescription.value = profileDescription.textContent
 
-  modalMenu.classList.add('modal_opened')
+  popup.classList.add('modal_opened')
 }
 
-function closeProfileModal(){
-  modalMenu.classList.remove('modal_opened')
+function closePopup(popup){
+  popup.classList.remove('modal_opened')
 }
 
-function submitProfileModal(event){
+function submitEditModal(event){
   event.preventDefault();
 
-  profileTitle.textContent = modalTitle.value
-  profileDescription.textContent = modalDescription.value
+  profileTitle.textContent = editTitle.value
+  profileDescription.textContent = editDescription.value
 
-  closeProfileModal()
+  closePopup(editMenu)
+}
+
+function submittAddModal(event){
+  event.preventDefault();
+
+  const title = event.target.title.value
+  const link = event.target.link.value
+
+  if (!title || !link){
+    return
+  }
+
+  const card = {name: title, link: link}
+  renderCard(card, elementList)
+
+  closePopup(addMenu)
+}
+
+function openPreview(popup) {
+  popup.classList.add("modal_opened");
+}
+
+function closePreview(popup){
+  popup.classList.remove("modal_opened");
+}
+
+function renderCard(cardData, wrapper){
+  const cardElement = getCardElement(cardData)
+  wrapper.prepend(cardElement)
 }
 
 function getCardElement(data){
   const element = template.cloneNode(true);
   const elementImage = element.querySelector('.elements__image')
   const elementTitle = element.querySelector('.elements__title')
+  const elementDelete = element.querySelector('.elements__delete')
+  const elementLike = element.querySelector('.elements__like-button')
+
+  const previewImage = document.querySelector(".modal__image");
+  const previewModal = document.querySelector("#preview_modal");
+  const previewTitle = document.querySelector(".modal__title");
+  const previewClose = document.querySelector('#preview_close')
 
   elementTitle.textContent = data.name;
   elementImage.src = data.link
   elementImage.alt = data.name
+
+  // Delete Button
+
+  elementDelete.addEventListener('click', function(){ element.remove() })
+
+  // Like Button
+
+  elementLike.addEventListener('click', function(){
+    elementLike.classList.toggle('elements__like-button-active')
+  })
+
+  // Popup
+
+  elementImage.addEventListener('click', () => {
+    openPreview(previewModal);
+    previewImage.src = data.link;
+    previewImage.alt = data.name;
+    previewTitle.textContent = data.name;
+  })
+
+  previewClose.addEventListener('click', () => {
+    closePreview(previewModal)
+  })
 
   return element
 }
 
 // Cards
 
-initialCards.forEach((card) => {
-  const cardElement = getCardElement(card)
-  elementList.append(cardElement)
-})
+initialCards.forEach((card) => { renderCard(card, elementList)})
 
 // Listeners
 
-editButton.addEventListener('click', openProfileModal)
-modalClose.addEventListener('click', closeProfileModal)
-modalSubmit.addEventListener('submit', submitProfileModal)
+editButton.addEventListener('click', function(){ openPopup(editMenu) })
+editClose.addEventListener('click', function(){ closePopup(editMenu) })
+editSubmit.addEventListener('submit', submitEditModal)
+
+addButton.addEventListener('click', function(){ openPopup(addMenu) })
+addClose.addEventListener('click', function(){ closePopup(addMenu) })
+addSubmit.addEventListener('submit', submittAddModal)

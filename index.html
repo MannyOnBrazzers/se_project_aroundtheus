@@ -44,11 +44,11 @@
       </footer>
     </div>
 
-    <div class="modal">
+    <div class="modal" id="edit_modal">
       <div class="modal__container">
-        <button class="modal__close" type="button"></button>
+        <button class="modal__close" id="edit_close" type="button"></button>
         <p class="modal__heading">Edit profile</p>
-        <form class="modal__form">
+        <form class="modal__form" id="edit_submit">
           <input type="text" name="title" class="modal__input" id="profile-modal-title" placeholder="Title"/>
           <input type="text" name="description" class="modal__input" id="profile-modal-description" placeholder="Description"/>
           <button class="modal__button">Save</button>
@@ -56,9 +56,30 @@
       </div>
     </div>
 
+    <div class="modal" id="add_modal">
+      <div class="modal__container">
+        <button class="modal__close" id="add_close" type="button"></button>
+        <p class="modal__heading">New Place</p>
+        <form class="modal__form" id="add_submit">
+          <input type="text" name="title" class="modal__input" id="add-modal-title" placeholder="Title"/>
+          <input type="text" name="link" class="modal__input" id="add-modal-link" placeholder="Image Link"/>
+          <button class="modal__button">Save</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="modal" id="preview_modal">
+      <div class="modal__container-preview">
+        <button class="modal__close" id="preview_close" type="button"></button>
+        <img src="" alt="" class="modal__image">
+        <div class="modal__title"></div>
+      </div>
+    </div>
+
     <template id="element-template">
       <li class="elements__list">
         <img src="" alt="" class="elements__image">
+        <button class="elements__delete" type="button"></button>
         <div class="elements__description">
           <h2 class="elements__title"></h2>
           <button type="button" class="elements__like-button"></button>

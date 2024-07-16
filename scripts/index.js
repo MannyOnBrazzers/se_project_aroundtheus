@@ -11,21 +11,17 @@ const initialCards = [
 
 const editButton = document.querySelector('.profile__edit-button')
 const editMenu = document.querySelector('#edit_modal')
-const editClose = document.querySelector('#edit_close')
 
 const editTitle = editMenu.querySelector('#profile-modal-title')
 const editDescription = editMenu.querySelector('#profile-modal-description')
-const editSubmit = editMenu.querySelector('#edit_submit')
+const profileForm = editMenu.querySelector('#edit_submit')
 
 const addButton = document.querySelector('.profile__add-button')
 const addMenu = document.querySelector('#add_modal')
-const addClose = document.querySelector('#add_close')
 
 const addTitle = addMenu.querySelector('#add-modal-title')
 const addLink = addMenu.querySelector('#add-modal-link')
-const addSubmit = addMenu.querySelector('#add_submit')
-
-// Other
+const cardForm = addMenu.querySelector('#add_submit')
 
 const profileTitle = document.querySelector('.profile__title')
 const profileDescription = document.querySelector('.profile__description')
@@ -33,14 +29,16 @@ const profileDescription = document.querySelector('.profile__description')
 const template = document.querySelector('#element-template').content.firstElementChild
 const elementList = document.querySelector('.elements__lists')
 
+const previewImage = document.querySelector(".modal__image");
+const previewModal = document.querySelector("#preview_modal");
+const previewTitle = document.querySelector(".modal__title");
+const previewClose = document.querySelector('#preview_close')
+
+const closeButtons = document.querySelectorAll('.modal__close');
+
 // Functions
 
 function openPopup(popup){
-  addTitle.value = ''
-  addLink.value = ''
-  editTitle.value = profileTitle.textContent
-  editDescription.value = profileDescription.textContent
-
   popup.classList.add('modal_opened')
 }
 
@@ -48,7 +46,7 @@ function closePopup(popup){
   popup.classList.remove('modal_opened')
 }
 
-function submitEditModal(event){
+function submitProfileForm(event){
   event.preventDefault();
 
   profileTitle.textContent = editTitle.value
@@ -57,7 +55,7 @@ function submitEditModal(event){
   closePopup(editMenu)
 }
 
-function submittAddModal(event){
+function submitCardForm(event){
   event.preventDefault();
 
   const title = event.target.title.value
@@ -70,15 +68,9 @@ function submittAddModal(event){
   const card = {name: title, link: link}
   renderCard(card, elementList)
 
+  event.target.reset()
+
   closePopup(addMenu)
-}
-
-function openPreview(popup) {
-  popup.classList.add("modal_opened");
-}
-
-function closePreview(popup){
-  popup.classList.remove("modal_opened");
 }
 
 function renderCard(cardData, wrapper){
@@ -92,11 +84,6 @@ function getCardElement(data){
   const elementTitle = element.querySelector('.elements__title')
   const elementDelete = element.querySelector('.elements__delete')
   const elementLike = element.querySelector('.elements__like-button')
-
-  const previewImage = document.querySelector(".modal__image");
-  const previewModal = document.querySelector("#preview_modal");
-  const previewTitle = document.querySelector(".modal__title");
-  const previewClose = document.querySelector('#preview_close')
 
   elementTitle.textContent = data.name;
   elementImage.src = data.link
@@ -115,14 +102,10 @@ function getCardElement(data){
   // Popup
 
   elementImage.addEventListener('click', () => {
-    openPreview(previewModal);
+    openPopup(previewModal);
     previewImage.src = data.link;
     previewImage.alt = data.name;
     previewTitle.textContent = data.name;
-  })
-
-  previewClose.addEventListener('click', () => {
-    closePreview(previewModal)
   })
 
   return element
@@ -134,10 +117,17 @@ initialCards.forEach((card) => { renderCard(card, elementList)})
 
 // Listeners
 
-editButton.addEventListener('click', function(){ openPopup(editMenu) })
-editClose.addEventListener('click', function(){ closePopup(editMenu) })
-editSubmit.addEventListener('submit', submitEditModal)
+editButton.addEventListener('click', function(){
+  editTitle.value = profileTitle.textContent
+  editDescription.value = profileDescription.textContent
+  openPopup(editMenu)
+})
 
+profileForm.addEventListener('submit', submitProfileForm)
 addButton.addEventListener('click', function(){ openPopup(addMenu) })
-addClose.addEventListener('click', function(){ closePopup(addMenu) })
-addSubmit.addEventListener('submit', submittAddModal)
+cardForm.addEventListener('submit', submitCardForm)
+
+closeButtons.forEach((button) => {
+  const popup = button.closest('.modal');
+  button.addEventListener('click', () => closePopup(popup));
+});

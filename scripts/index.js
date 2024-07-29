@@ -7,6 +7,8 @@ const initialCards = [
   {name: 'Lago di Braies', link: 'https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg'},
 ];
 
+const modals = document.querySelectorAll(".modal");
+
 // Popups
 
 const editButton = document.querySelector('.profile__edit-button')
@@ -40,10 +42,25 @@ const closeButtons = document.querySelectorAll('.modal__close');
 
 function openPopup(popup){
   popup.classList.add('modal_opened')
+  document.addEventListener("keydown", closeModalESC);
 }
 
 function closePopup(popup){
   popup.classList.remove('modal_opened')
+  document.removeEventListener("keydown", closeModalESC);
+}
+
+function closeModalOverlay(event) {
+  if (event.target.classList.contains("modal")) {
+    closePopup(event.target);
+  }
+}
+
+function closeModalESC(event){
+  if (event.key === 'Escape'){
+    const popup = document.querySelector(".modal_opened");
+    closePopup(popup);
+  }
 }
 
 function submitProfileForm(event){
@@ -130,4 +147,8 @@ cardForm.addEventListener('submit', submitCardForm)
 closeButtons.forEach((button) => {
   const popup = button.closest('.modal');
   button.addEventListener('click', () => closePopup(popup));
+});
+
+modals.forEach((modal) => {
+  modal.addEventListener("click", closeModalOverlay);
 });
